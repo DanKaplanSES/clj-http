@@ -157,8 +157,8 @@
            retry-handler response-interceptor] :as req}]
   (let [conn-mgr (or conn/*connection-manager*
                      (conn/make-regular-conn-manager req))
-        ;;http-client (DefaultAsyncHttpClient. conn-mgr)
         http-client (org.apache.http.impl.nio.client.DefaultHttpAsyncClient.)
+        _ (.start http-client)
         scheme (name scheme)]
     (when-let [cookie-store (or cookie-store *cookie-store*)]
       (.setCookieStore http-client cookie-store))
